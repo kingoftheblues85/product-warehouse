@@ -8,7 +8,7 @@ export default async function Home() {
   const products: ProductType[] = await getProducts();
 
   return (
-    <>
+    <main className="container mx-auto">
       <h1 className="text-3xl font-bold text-center mt-8">
         Products Warehouse
       </h1>
@@ -16,10 +16,8 @@ export default async function Home() {
       <AddProductForm />
 
       <div className="mx-2 sm:mx-4">
-
-      <Products products={products} />
+        <Products products={products} />
       </div>
-
-    </>
+    </main>
   );
 }

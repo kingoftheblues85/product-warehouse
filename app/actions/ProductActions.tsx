@@ -21,19 +21,17 @@ export const getProducts = async () => {
       console.error(
         `Failed to fetch products. Status code: ${response.status}`
       );
-      return response.status
+      return response.status;
     }
 
     const products = await response.json();
+    console.log("products fetched");
     return products;
-
   } catch (error) {
     // Handle network errors or exceptions
     console.error("Error fetching products:", error);
     throw error;
   }
-
-
 };
 
 export const addProduct = async (e: FormData) => {
@@ -70,7 +68,7 @@ export const deleteProduct = async (productId: number | undefined) => {
     const response = await fetch(
       `https://64ff6515f8b9eeca9e2a12d6.mockapi.io/api/products/${productId}`,
       {
-        method: "Delete",
+        method: "DELETE",
       }
     );
 
@@ -80,11 +78,12 @@ export const deleteProduct = async (productId: number | undefined) => {
         `Failed to delete product with ID ${productId}. Status code: ${response.status}`
       );
       return response.status;
-    } else {
-      console.log(`Product with ID ${productId} deleted.`);
-      revalidateTag("products");
-      return response.status;
     }
+    
+    console.log(`Product with ID ${productId} deleted.`);
+    revalidateTag("products");
+    return response.status;
+
   } catch (error) {
     // Handle network errors or exceptions
     console.error("Error deleting product:", error);
